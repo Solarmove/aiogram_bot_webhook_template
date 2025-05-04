@@ -45,6 +45,6 @@ async def get_user_locale(user_id: int):
         return user_locale.decode()
     return None
 
+
 async def set_user_locale(user_id: int, locale: str):
     await redis.set(f"user:{user_id}:locale", locale)
-

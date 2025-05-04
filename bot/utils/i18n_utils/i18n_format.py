@@ -33,10 +33,10 @@ class I18NFormat(Text):
 
 def make_i18n_middleware(path_to_locales: str) -> I18nDialogMiddleware:
     loader = FluentResourceLoader(path_to_locales)
-    LOCALES = ["uk", 'ru', 'en']
+    LOCALES = ["uk", "ru", "en"]
     l10ns = {
         locale: FluentLocalization(
-            [locale, 'uk', 'ru', 'en'],
+            [locale, "uk", "ru", "en"],
             ["messages.ftl"],
             loader,
         )

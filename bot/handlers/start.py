@@ -7,5 +7,4 @@ router = Router()
 
 
 @router.message(CommandStart())
-async def start_handler(message: Message, uow: IUnitOfWork):
-    ...
+async def start_handler(message: Message, uow: IUnitOfWork): ...

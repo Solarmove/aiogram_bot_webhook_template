@@ -1,6 +1,6 @@
 from typing import Any, Awaitable, Callable, Dict, MutableMapping, Optional
 
-from aiogram import BaseMiddleware
+from aiogram import BaseMiddleware, Bot
 from aiogram.dispatcher.flags import get_flag
 from aiogram.types import TelegramObject, User
 from cachetools import TTLCache
@@ -53,10 +53,15 @@ class ThrottlingMiddleware(BaseMiddleware):
         data: Dict[str, Any],
     ) -> Optional[Any]:
         user: Optional[User] = data.get("event_from_user", None)
-
+        bot: Bot = data["bot"]
         if user is not None:
             throttling_key = get_flag(data, "throttling_key", default=self.default_key)
             if throttling_key and user.id in self.caches[throttling_key]:
+                await bot.send_message(
+                    user.id,
+                    "Слишком быстро..\n\n"
+                    f"Подожди {self.caches[throttling_key].ttl} секунд",
+                )
                 return None
             self.caches[throttling_key][user.id] = None
 

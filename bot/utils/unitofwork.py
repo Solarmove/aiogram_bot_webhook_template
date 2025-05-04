@@ -1,21 +1,11 @@
 from abc import ABC, abstractmethod
-from typing import Type
 
 from sqlalchemy.ext.asyncio.session import AsyncSession, async_sessionmaker
 
 from bot.db.base import async_session_maker
-from bot.db.repositories.repo import (
-    UserRepo,
-    GroupRepo,
-    TaskRepo,
-    GroupPartisipantsRepo,
-    ReportRepo,
-)
 
 
 class IUnitOfWork(ABC):
-
-
     @abstractmethod
     def __init__(self): ...
 
@@ -35,8 +25,7 @@ class IUnitOfWork(ABC):
 class UnitOfWork(IUnitOfWork):
     session_factory: async_sessionmaker[AsyncSession] = None
 
-    def __call__(self, *args, **kwargs):
-        ...
+    def __call__(self, *args, **kwargs): ...
 
     def __init__(self):
         if not self.session_factory:
